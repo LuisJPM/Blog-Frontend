@@ -1,14 +1,16 @@
-import { useRoutes } from "react-router"
-import { Toaster } from "react-hot-toast"
-import routes from "./routes.jsx"
+import React from "react";
+import { Navbar } from "./components/Navbar";
+import { useRoutes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { routes } from "./routes";
+
 export const App = () => {
+  const element = useRoutes(routes);
   return (
-    <>
-
-    <div>Basura yiyi</div>
-    </>
-    
-  )
+    <div>
+      <Navbar />
+      {element}
+      <Toaster position="top-center" reverseOrder={false} />
+    </div>
+  );
 }
-
-export default App
