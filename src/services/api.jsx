@@ -5,22 +5,14 @@ const API = axios.create({
     timeout: 5000,
 });
 
-export { API };
-
 export const listarPublicaciones = async () => {
     try {
-        const res = await API.get("/publicaciones");
-        const data = res.data;
-
-        if (!Array.isArray(data)) {
-            console.warn("La respuesta de listarPublicaciones no es un array:", data);
-            return [];
+        return await API.get("/publicaciones/");
+    } catch (e) {
+        return {
+            error: true,
+            e
         }
-
-        return data;
-    } catch (error) {
-        console.error("Error en listarPublicaciones:", error);
-        return [];
     }
 };
 
@@ -28,19 +20,23 @@ export const listarPublicacionPorID = async (id) => {
     try {
         const res = await API.get(`/publicaciones/${id}`);
         return res.data;
-    } catch (error) {
-        console.error("Error en listarPublicacionPorID:", error);
-        return null;
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
     }
 };
 
 export const agregarComentario = async (comentario) => {
     try {
-        const res = await API.post("/comentarios", comentario);
+        const res = await API.post("/comentarios/", comentario);
         return res.data;
-    } catch (error) {
-        console.error("Error en agregarComentario:", error);
-        throw error;
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
     }
 };
 
@@ -55,9 +51,11 @@ export const filtrarPublicacionesPorCurso = async (curso) => {
         }
 
         return data;
-    } catch (error) {
-        console.error("Error en filtrarPublicacionesPorCurso:", error);
-        return [];
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
     }
 };
 
@@ -72,9 +70,11 @@ export const filtrarPublicacionesPorTitulo = async (titulo) => {
         }
 
         return data;
-    } catch (error) {
-        console.error("Error en filtrarPublicacionesPorTitulo:", error);
-        return [];
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
     }
 };
 
@@ -89,8 +89,10 @@ export const filtrarPublicacionesPorFechas = async (fechaInicio, fechaFin) => {
         }
 
         return data;
-    } catch (error) {
-        console.error("Error en filtrarPublicacionesPorFechas:", error);
-        return [];
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
     }
 };
